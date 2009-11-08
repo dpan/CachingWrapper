@@ -15,8 +15,7 @@ namespace Utilities
 
         #endregion
 
-        public IndexedLinkedList()
-                : this(0)
+        public IndexedLinkedList() : this(0)
         {
         }
 
