@@ -10,7 +10,7 @@ namespace Utilities
     /// </summary>
     /// <typeparam name="TKey">The key type</typeparam>
     /// <typeparam name="TValue">The value type</typeparam>
-    public class CachingWrapper<TKey, TValue> where TKey : IComparable
+    public class CachingWrapper<TKey, TValue> where TKey : notnull, IComparable
     {
         /// <summary>
         /// The delegate method that will be called when a request cannot be fullfilled from the cache
@@ -22,7 +22,7 @@ namespace Utilities
         #region Data Members
 
         private readonly Dictionary<TKey, TValue> _localCache;
-        private readonly IndexedLinkedList<TKey> _lruList;
+        private readonly IndexedLinkedList<TKey>? _lruList; // Made nullable
         private readonly int _capacity;
 
         private readonly RetrieveFromOriginalSource _originalSourceRetriever;
@@ -36,7 +36,7 @@ namespace Utilities
         /// Initializes a new instance of the <see cref="CachingWrapper{TKey,TValue}"/> class.
         /// </summary>
         /// <param name="originalSourceRetriever">The method that will return an element if it is not in the cache.</param>
-        public CachingWrapper(RetrieveFromOriginalSource originalSourceRetriever : this(originalSourceRetriever, 0)
+        public CachingWrapper(RetrieveFromOriginalSource originalSourceRetriever) : this(originalSourceRetriever, 0)
         {
         }
 
@@ -58,11 +58,12 @@ namespace Utilities
             if (capacity > 0)
             {
                 _localCache = new Dictionary<TKey, TValue>(capacity);
-                _lruList = new IndexedLinkedList<TKey>();
+                _lruList = new IndexedLinkedList<TKey>(capacity); // Pass capacity
             }
             else
             {
                 _localCache = new Dictionary<TKey, TValue>();
+                _lruList = null; // Explicitly set to null
             }
         }
 
@@ -99,9 +100,9 @@ namespace Utilities
             {
                 try
                 {
-                    TValue result;
+                    TValue? result; // Changed to TValue?
 
-                    if (!_localCache.TryGetValue(key, out result))
+                    if (!_localCache.TryGetValue(key, out result) || result == null) // Ensure result is not null if TryGetValue is true but TValue is nullable
                     {
                         result = _originalSourceRetriever(key);
                         WriteToCache(key, result, lockTimeout);
@@ -139,7 +140,7 @@ namespace Utilities
                 try
                 {
                     _localCache.Clear();
-                    _lruList.Clear();
+                    _lruList?.Clear(); // Use null-conditional access
 
                     return true;
                 }
@@ -166,7 +167,8 @@ namespace Utilities
 
         private void PutKeyOnTop(TKey key)
         {
-            if (_capacity > 0)
+            // _lruList is non-null if _capacity > 0
+            if (_lruList != null)
             {
                 // Remove it from current position
                 _lruList.Remove(key);
@@ -192,10 +194,13 @@ namespace Utilities
                     {
                         _localCache.Add(key, value);
 
-                        if (_capacity > 0)
+                        // _lruList is non-null if _capacity > 0
+                        if (_lruList != null)
                         {
                             if (_localCache.Count > _capacity)
                             {
+                                // Assuming _lruList.First throws if empty (matching LinkedList<T>.First behavior).
+                                // TKey is notnull, so _lruList.First will return a non-null TKey if list not empty.
                                 _localCache.Remove(_lruList.First);
                                 _lruList.RemoveFirst();
                             }

@@ -1,0 +1,12 @@
+/app/Utilities.Caching/bin/Release/net9.0/Utilities.Caching.deps.json
+/app/Utilities.Caching/bin/Release/net9.0/Utilities.Caching.dll
+/app/Utilities.Caching/bin/Release/net9.0/Utilities.Caching.pdb
+/app/Utilities.Caching/obj/Release/net9.0/Utilities.Caching.GeneratedMSBuildEditorConfig.editorconfig
+/app/Utilities.Caching/obj/Release/net9.0/Utilities.Caching.AssemblyInfoInputs.cache
+/app/Utilities.Caching/obj/Release/net9.0/Utilities.Caching.AssemblyInfo.cs
+/app/Utilities.Caching/obj/Release/net9.0/Utilities.Caching.csproj.CoreCompileInputs.cache
+/app/Utilities.Caching/obj/Release/net9.0/Utilities.Caching.sourcelink.json
+/app/Utilities.Caching/obj/Release/net9.0/Utilities.Caching.dll
+/app/Utilities.Caching/obj/Release/net9.0/refint/Utilities.Caching.dll
+/app/Utilities.Caching/obj/Release/net9.0/Utilities.Caching.pdb
+/app/Utilities.Caching/obj/Release/net9.0/ref/Utilities.Caching.dll

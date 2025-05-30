@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Utilities.Caching</id>
+    <version>1.0.0</version>
+    <authors>JulesAI</authors>
+    <license type="expression">MIT</license>
+    <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
+    <readme>README.md</readme>
+    <description>A thread-safe LRU caching library.</description>
+    <tags>cache caching lru thread-safe utilities</tags>
+    <repository type="git" commit="969d33256fe7d5c9255194ea89b62ce8c7b42c91" />
+    <dependencies>
+      <group targetFramework="net9.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="/app/Utilities.Caching/bin/Release/net9.0/Utilities.Caching.dll" target="lib/net9.0/Utilities.Caching.dll" />
+    <file src="/app/Utilities.Caching/README.md" target="/README.md" />
+  </files>
+</package>
