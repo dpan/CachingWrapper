@@ -36,7 +36,8 @@ namespace Utilities
         /// Initializes a new instance of the <see cref="CachingWrapper{TKey,TValue}"/> class.
         /// </summary>
         /// <param name="originalSourceRetriever">The method that will return an element if it is not in the cache.</param>
-        public CachingWrapper(RetrieveFromOriginalSource originalSourceRetriever : this(originalSourceRetriever, 0)
+        public CachingWrapper(RetrieveFromOriginalSource originalSourceRetriever)
+            : this(originalSourceRetriever, 0)
         {
         }
 
