@@ -91,6 +91,29 @@ namespace Utilities.Tests
 
         [Description("CachingWrapper tester")]
         [TestMethod]
+        public void TestClearCache()
+        {
+            _cacheMisses = 0;
+
+            var cachedSource = new CachingWrapper<int, string>(DatabaseCallMock, 3);
+
+            cachedSource.Retrieve(0);
+            cachedSource.Retrieve(1);
+            cachedSource.Retrieve(2);
+
+            var cleared = cachedSource.ClearCache(Timeout.Infinite);
+
+            Assert.IsTrue(cleared, "ClearCache should return true when the cache is cleared.");
+
+            int missesBefore = _cacheMisses;
+
+            cachedSource.Retrieve(0);
+
+            Assert.AreEqual(missesBefore + 1, _cacheMisses, "Cache miss count should increment after clearing the cache.");
+        }
+
+        [Description("CachingWrapper tester")]
+        [TestMethod]
         public void TestCachingWrapperMissRatio()
         {
             const int iterations = 100;
