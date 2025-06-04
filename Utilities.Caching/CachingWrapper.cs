@@ -14,7 +14,7 @@ namespace Utilities
     public class CachingWrapper<TKey, TValue> where TKey : notnull, IComparable
     {
         /// <summary>
-        /// The delegate method that will be called when a request cannot be fullfilled from the cache
+        /// The delegate method that will be called when a request cannot be fulfilled from the cache
         /// </summary>
         /// <param name="key">The Key</param>
         /// <returns>The value</returns>
@@ -37,7 +37,8 @@ namespace Utilities
         /// Initializes a new instance of the <see cref="CachingWrapper{TKey,TValue}"/> class.
         /// </summary>
         /// <param name="originalSourceRetriever">The method that will return an element if it is not in the cache.</param>
-        public CachingWrapper(RetrieveFromOriginalSource originalSourceRetriever) : this(originalSourceRetriever, 0)
+        public CachingWrapper(RetrieveFromOriginalSource originalSourceRetriever)
+            : this(originalSourceRetriever, 0)
         {
         }
 
