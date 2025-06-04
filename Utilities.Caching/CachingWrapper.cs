@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using System.Threading;
 
 namespace Utilities
@@ -47,12 +48,9 @@ namespace Utilities
         /// <param name="capacity">The maximum capacity of the cache. Use zero for infinite, non LRU capacity</param>
         public CachingWrapper(RetrieveFromOriginalSource originalSourceRetriever, int capacity)
         {
-            if (originalSourceRetriever == null)
-            {
-                throw new ArgumentException("originalSourcerRetriever cannot be null");
-            }
+            ArgumentNullException.ThrowIfNull(originalSourceRetriever);
 
-            _originalSourceRetriever += originalSourceRetriever;
+            _originalSourceRetriever = originalSourceRetriever;
             _capacity = capacity;
 
             if (capacity > 0)
@@ -184,23 +182,19 @@ namespace Utilities
             {
                 try
                 {
-                    if (_localCache.ContainsKey(key))
-                    {
-                        _localCache[key] = value; // refresh
+                    ref TValue? entry = ref CollectionsMarshal.GetValueRefOrAddDefault(_localCache, key, out bool exists);
+                    entry = value;
 
+                    if (exists)
+                    {
                         PutKeyOnTop(key);
                     }
                     else
                     {
-                        _localCache.Add(key, value);
-
-                        // _lruList is non-null if _capacity > 0
                         if (_lruList != null)
                         {
                             if (_localCache.Count > _capacity)
                             {
-                                // Assuming _lruList.First throws if empty (matching LinkedList<T>.First behavior).
-                                // TKey is notnull, so _lruList.First will return a non-null TKey if list not empty.
                                 _localCache.Remove(_lruList.First);
                                 _lruList.RemoveFirst();
                             }

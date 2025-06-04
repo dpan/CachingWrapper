@@ -8,7 +8,7 @@ A thread-safe LRU caching library for .NET.
 *   Least Recently Used (LRU) eviction policy.
 *   Configurable cache capacity.
 *   Delegate for custom data retrieval.
-*   Supports .NET 9.
+*   Optimized dictionary updates using `CollectionsMarshal.GetValueRefOrAddDefault` (requires .NET&nbsp;9).
 
 ## Usage
 
@@ -27,3 +27,4 @@ var cache = new CachingWrapper<int, string>(
 string value1 = cache.Retrieve(1);
 string value2 = cache.Retrieve(1); // Will be fetched from cache
 ```
+
