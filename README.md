@@ -1,7 +1,7 @@
 # Caching Wrapper
 
-A thread safe wrapper around a db or service call to provide ["Least Recently Used" (LRU)](http://en.wikipedia.org/wiki/Cache_algorithms) Caching.
-     
+A thread-safe wrapper around a db or service call that provides ["Least Recently Used" (LRU)](http://en.wikipedia.org/wiki/Cache_algorithms) caching. The library targets **.NET&nbsp;9** and exposes a reusable `CachingWrapper<TKey,TValue>` class.
+
 ## Usage
                                                             
 Initialize the wrapper. You can use any type for the key and the value.
@@ -12,7 +12,7 @@ In the following example a cache capacity of 100 is chosen. Use 0 to disable LRU
 
     cachedSource.Retrieve(10); // Next time this key is requested, it'll be retrieved from the cache
 
-Method used as a delegate to retrieve value from original source:
+The delegate used to retrieve a value from the original source might look like this:
 
     private string GetFromOriginalSource(int key)
     {
