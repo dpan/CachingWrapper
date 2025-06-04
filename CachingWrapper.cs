@@ -49,7 +49,7 @@ namespace Utilities
         {
             if (originalSourceRetriever == null)
             {
-                throw new ArgumentException("originalSourcerRetriever cannot be null");
+                throw new ArgumentException("originalSourceRetriever cannot be null");
             }
 
             _originalSourceRetriever += originalSourceRetriever;
