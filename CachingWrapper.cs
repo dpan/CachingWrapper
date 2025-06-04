@@ -13,7 +13,7 @@ namespace Utilities
     public class CachingWrapper<TKey, TValue> where TKey : IComparable
     {
         /// <summary>
-        /// The delegate method that will be called when a request cannot be fullfilled from the cache
+        /// The delegate method that will be called when a request cannot be fulfilled from the cache
         /// </summary>
         /// <param name="key">The Key</param>
         /// <returns>The value</returns>
